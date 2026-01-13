@@ -1,0 +1,117 @@
+:root {
+  --primary: #0066ff;
+  --bg: #f4f7fa;
+  --card: #ffffff;
+  --text: #1a1d23;
+  --success: #00c853;
+  --danger: #ff4444;
+}
+
+/* Reset Geral */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* FORÇA CENTRALIZAÇÃO DO LOGIN */
+.login-container {
+  position: fixed; /* Isso faz ele ignorar qualquer erro de layout do App.jsx */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  z-index: 10000;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+}
+
+/* DASHBOARD - CONTEÚDO PÓS-LOGIN */
+.wallet-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+@media (min-width: 850px) {
+  .dashboard-content { flex-direction: row; align-items: flex-start; }
+  .dashboard-content > div { flex: 1; }
+}
+
+/* COMPONENTES */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #0066ff 0%, #003399 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1.5px solid #e0e6ed;
+  border-radius: 8px;
+}
+
+button {
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e6ed;
+  margin-bottom: 30px;
+}
+
+.logout-btn { width: auto; background-color: var(--danger); }
+
+.transaction-table { width: 100%; border-collapse: collapse; }
+.transaction-table th { text-align: left; padding: 10px; color: #677489; }
+.transaction-table td { padding: 15px 10px; border-bottom: 1px solid #f0f2f5; }
+.status-done { color: var(--success); font-weight: bold; }
