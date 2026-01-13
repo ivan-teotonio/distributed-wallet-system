@@ -1,64 +1,67 @@
-💰 Wallet Distributed System
-Este projeto é uma simulação de uma carteira digital baseada em uma Arquitetura de Microserviços. O sistema permite o cadastro de usuários, login autenticado via JWT, realização de transferências e visualização de extrato em tempo real.
+# 💰 Distributed Wallet System
 
-🏗️ Arquitetura do Sistema
-O projeto é dividido em três partes principais que se comunicam de forma distribuída:
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-blue)
+![Architecture](https://img.shields.io/badge/Architecture-Microservices-orange)
+![Auth](https://img.shields.io/badge/Auth-JWT-green)
 
-Frontend (React): Interface do usuário que consome a API através de um Gateway.
+Sistema de carteira digital de alta disponibilidade projetado para a cadeira de **Sistemas Distribuídos**. A aplicação utiliza uma arquitetura descentralizada com múltiplos serviços especializados e um ponto único de entrada via API Gateway.
 
-API Gateway (Porta 3000): Ponto central de entrada. Ele recebe as requisições do React e as redireciona para o microserviço correto.
+---
 
-Accounts Service (Porta 3001): Responsável pelo gerenciamento de usuários, cadastro e autenticação (Login).
+## 🏗️ Arquitetura do Sistema
 
-Transaction Service (Porta 3002): Responsável por processar transferências e recuperar o histórico de transações do banco de dados.
+O projeto implementa o padrão de **API Gateway** para abstração de rede e **Database-per-Service** para isolamento de domínio.
 
-🛠️ Tecnologias Utilizadas
-Frontend: React.js, Axios, JWT-Decode, CSS3 (Flexbox/Responsive).
+### Fluxo de Comunicação:
+1. **Client (React)** ➔ Requisição HTTP (Porta 3000)
+2. **API Gateway** ➔ Proxy Reverso e Roteamento de Camada 7
+3. **Microserviços** ➔ Processamento Independente (Portas 3001 e 3002)
 
-Backend: Node.js, Express.
 
-Segurança: JSON Web Token (JWT) para autenticação stateless.
+---
 
-Banco de Dados: PostgreSQL / MySQL (armazenando usuários e transações).
+## 🛠️ Stack Tecnológica
 
-🔐 Segurança e Autenticação
-O sistema utiliza JWT (JSON Web Token) para garantir que as comunicações sejam seguras:
+| Componente | Tecnologia | Responsabilidade |
+|:--- |:--- |:--- |
+| **Frontend** | React.js | Interface reativa e consumo de APIs |
+| **Gateway** | Node.js / Express | Roteamento e Proxy Reverso |
+| **Accounts** | Node.js / JWT | Gestão de Identidade e Auth Stateless |
+| **Transactions** | Node.js / SQL | Lógica de negócio e persistência |
 
-Ao fazer login, o Accounts Service gera um token assinado.
+---
 
-O Frontend armazena esse token no localStorage.
+## 🔐 Segurança: Autenticação Stateless (JWT)
 
-O sistema descriptografa o payload do token no cliente (via jwt-decode) para identificar o usuário logado e filtrar suas transações de forma privada.
+Diferente de sistemas monolíticos que usam sessões (stateful), este sistema utiliza **JSON Web Tokens**.
+* **Escalabilidade**: Os microserviços não precisam consultar um banco de dados central para validar o usuário.
+* **Descentralização**: O `Transaction Service` valida a assinatura do token de forma autônoma.
+* **Payload**: O token carrega o `user_id` de forma segura no cabeçalho das requisições.
 
-🚀 Como Executar o Projeto
-Pré-requisitos
-Node.js instalado.
+---
 
-Banco de Dados configurado e rodando.
+## 🚀 Como Executar
 
-Passo 1: Configurar os Microserviços
-Em cada pasta de serviço (Gateway, Accounts, Transactions), execute:
+### 1. Clonar e Instalar
+```bash
+git clone [https://github.com/ivan-teotonio/distributed-wallet-system.git](https://github.com/ivan-teotonio/distributed-wallet-system.git)
 
-Bash
+# Gateway (Porta 3000)
+cd api-gateway && npm install && node index.js
 
-npm install
-node index.js
-Passo 2: Executar o Frontend
-Na pasta do projeto React:
+# Accounts Service (Porta 3001)
+cd accounts-service && npm install && node index.js
 
-Bash
+# Transaction Service (Porta 3002)
+cd transaction-service && npm install && node index.js
 
-npm install
-npm run dev
-📊 Funcionalidades Implementadas
-[x] Cadastro de novos usuários.
+cd frontend-wallet && npm install && npm run dev
 
-[x] Autenticação com geração de Token JWT.
+📊 Funcionalidades
+[x] Gateway Pattern: Roteamento centralizado.
 
-[x] Painel de Saldo Total (calculado dinamicamente).
+[x] Auth JWT: Login seguro com expiração de token.
 
-[x] Envio de transferências entre usuários.
+[x] Isolamento: Serviços operam em processos distintos.
 
-[x] Extrato de transações filtrado por usuário logado.
-
-[x] Interface responsiva e moderna.
+[x] UI Responsiva: Dashboard adaptável para Mobile/Desktop.
